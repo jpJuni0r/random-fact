@@ -25,10 +25,10 @@ var getFact = new Promise(resolve => {
 
 var sendMessage = message => {
   return new Promise(resolve => {
-    console.log(`Sending message ${message}`)
+    console.log(message)
 
     let messageFormatted = message;
-    messageFormatted = replaceAll(messageFormatted, '\'', '\\\'');
+    messageFormatted = replaceAll(messageFormatted, '\'', '');
     messageFormatted = replaceAll(messageFormatted, '"', '');
     messageFormatted = replaceAll(messageFormatted, '%', ' Prozent');
     messageFormatted = replaceAll(messageFormatted, ' ', '%s');
@@ -41,14 +41,14 @@ var sendMessage = message => {
     messageFormatted = replaceAll(messageFormatted, 'ß', 'ss');
     messageFormatted = replaceAll(messageFormatted, '-', ' ');
 
-    console.log('Formatierte Nachricht', messageFormatted);
+    console.log(messageFormatted);
 
     exec(`adb shell input text "${messageFormatted}"`, (err, stdout) => {
       if (err) {
         console.error(err);
       }
 
-      console.log('Out', stdout);
+      console.log(stdout);
 
       exec('adb shell input keyevent 66', () => {
         resolve();
